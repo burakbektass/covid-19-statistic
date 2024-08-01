@@ -17,6 +17,7 @@
     "react-tooltip": "^5.27.1",
     "redux": "^5.0.1",
     "redux-saga": "^1.3.0",
+    "redux-with-saga": "file:",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
