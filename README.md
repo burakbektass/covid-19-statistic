@@ -8,7 +8,7 @@ Clone or download the project ( git clone https://github.com/burakbektass/covid-
 
 Run the command `docker build -t redux-with-saga .`
 
-after build is finished run the comman `docker run -p 3000:3000 redux-with-saga`
+after build is finished run the command `docker run -p 3000:3000 redux-with-saga`
 
 application is ready on port 3000 -> (http://localhost:3000/)
 
