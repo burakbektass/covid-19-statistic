@@ -47,65 +47,71 @@ function DetailPage() {
   }, [storeData]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <div className="loading">Loading data...</div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="error">Error: {error}</div>;
   }
 
   return (
-    <>
-      <h1 className="data-row">COVID details of {countryName} </h1>
+    <div className="detail-container">
+      <h1 className="page-title">COVID-19 Statistics: {countryName}</h1>
       {formattedData && (
-        <div className="data-rows">
-          <div style={{ width: "100%", height: "100%" }}>
-            <div className="data-row">
-              <span className="label">Country:</span>
-              <span className="value">{formattedData.countryName}</span>
-            </div>
-            <div className="data-row">
-              <span className="label">ISO:</span>
-              <span className="value">{formattedData.iso}</span>
-            </div>
-            <div className="data-row">
-              <span className="label">Active cases:</span>
-              <span className="value">
-                {formatNumber(formattedData.active_case)}
-              </span>
-            </div>
-            <div className="data-row">
-              <span className="label">Confirmed cases:</span>
-              <span className="value">
-                {formatNumber(formattedData.confirmed_case)}
-              </span>
-            </div>
-            <div className="data-row">
-              <span className="label">Deaths:</span>
-              <span className="value">
-                {formatNumber(formattedData.deaths)}
-              </span>
-            </div>
-            <div className="data-row">
-              <span className="label">Fatality rate:</span>
-              <span className="value">
-                {formattedData.fatality_rate.toFixed(5)}
-              </span>
-            </div>
-            <div className="data-row">
-              <span className="label">Recovered:</span>
-              <span className="value">
-                {formatNumber(formattedData.recovered)}
-              </span>
-            </div>
-            <div className="data-row">
-              <span className="label">Last update</span>
-              <span className="value">{formattedData.last_update}</span>
-            </div>
-          </div>
+        <div className="data-table">
+          <table className="table">
+            <tbody>
+              <tr>
+                <td className="label-cell">Country</td>
+                <td className="value-cell info">{formattedData.countryName}</td>
+              </tr>
+              <tr>
+                <td className="label-cell">ISO Code</td>
+                <td className="value-cell info">{formattedData.iso}</td>
+              </tr>
+              <tr>
+                <td className="label-cell">Active Cases</td>
+                <td className="value-cell warning">
+                  {formatNumber(formattedData.active_case)}
+                </td>
+              </tr>
+              <tr>
+                <td className="label-cell">Confirmed Cases</td>
+                <td className="value-cell warning">
+                  {formatNumber(formattedData.confirmed_case)}
+                </td>
+              </tr>
+              <tr>
+                <td className="label-cell">Deaths</td>
+                <td className="value-cell critical">
+                  {formatNumber(formattedData.deaths)}
+                </td>
+              </tr>
+              <tr>
+                <td className="label-cell">Fatality Rate</td>
+                <td className="value-cell critical">
+                  {formattedData.fatality_rate.toFixed(5)}%
+                </td>
+              </tr>
+              <tr>
+                <td className="label-cell">Recovered</td>
+                <td className="value-cell success">
+                  {formatNumber(formattedData.recovered)}
+                </td>
+              </tr>
+              <tr>
+                <td className="label-cell">Last Updated</td>
+                <td className="value-cell info">{formattedData.last_update}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

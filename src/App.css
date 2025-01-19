@@ -1,8 +1,14 @@
-html{
-  background-color: lightgray
+html {
+  background-color: #f0f2f5;
 }
+
 .App {
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-color: #f0f2f5;
+  padding: 0;
+  margin: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -12,17 +18,31 @@ html{
 }
 
 .container {
-  min-height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }
+
 .header {
-  color: black;
-  font-family:salmon,sans-serif;
+  position: absolute;
+  top: 25px;
+  left: 40px;
+  color: #1a365d;
+  font-family: 'Segoe UI', -apple-system, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 15px 25px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+  backdrop-filter: blur(8px);
 }
 
 .App-link {

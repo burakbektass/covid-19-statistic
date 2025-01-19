@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./WorldMap.css";
 import {
   ComposableMap,
@@ -8,35 +8,88 @@ import {
   ZoomableGroup,
 } from "react-simple-maps";
 import { Tooltip } from "react-tooltip";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 function WorldMap() {
   const [tipContent, setTipContent] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [countries, setCountries] = useState<any[]>([]);
+  const navigate = useNavigate();
 
-  const onCountrySelect = (params: any): void => {
-    setSelectedCountry(params);
+  useEffect(() => {
+    fetch(geoUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        const countryList = data.objects.countries.geometries.map(
+          (geo: any) => geo.properties.name
+        );
+        setCountries(countryList);
+      });
+  }, []);
+
+  const filteredCountries = useMemo(() => {
+    if (!searchTerm) return [];
+    return countries.filter((country) =>
+      country.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm, countries]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleCountrySelect = (countryName: string) => {
+    navigate(`/${countryName}`);
+    setSearchTerm("");
   };
 
   return (
-    <div>
+    <div className="map-container">
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search for a country..."
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+        {searchTerm && (
+          <div className="search-results">
+            {filteredCountries.map((country) => (
+              <Link
+                key={country}
+                to={`/${country}`}
+                className="search-result-item"
+                onClick={() => setSearchTerm("")}
+              >
+                {country}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
       <div className="WorldMap">
         <Tooltip anchorSelect=".tipElement" place="top">
           {tipContent}
-        </Tooltip>{" "}
+        </Tooltip>
         <ComposableMap
           data-tip=""
           projectionConfig={{
             scale: 180,
+            center: [0, 20]
+          }}
+          style={{
+            width: "100%",
+            height: "100%"
           }}
         >
           <ZoomableGroup zoom={1}>
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
-                geographies.map((geo, index) => (
+                geographies.map((geo) => (
                   <Link key={geo.rsmKey} to={`/${geo.properties.name}`}>
                     <Geography
                       className="tipElement"
@@ -48,13 +101,19 @@ function WorldMap() {
                       onMouseLeave={() => {
                         setTipContent("");
                       }}
-                      onClick={() => {
-                        onCountrySelect(geo);
-                      }}
                       style={{
-                        hover: {
-                          fill: "white",
+                        default: {
+                          fill: "#e2e8f0",
+                          stroke: "#fff",
+                          strokeWidth: 0.5,
                           outline: "none",
+                        },
+                        hover: {
+                          fill: "#4299e1",
+                          stroke: "#fff",
+                          strokeWidth: 0.5,
+                          outline: "none",
+                          cursor: "pointer",
                         },
                       }}
                     />
