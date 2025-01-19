@@ -1,7 +1,5 @@
 # 🦠 COVID-19 Statistics Dashboard
 
-![COVID-19 Dashboard](project-screenshot.png)
-
 A modern, interactive dashboard for tracking global COVID-19 statistics in real-time. Built with React, Redux, and Redux-Saga.
 
 ## ✨ Features
