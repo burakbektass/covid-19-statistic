@@ -1,8 +1,28 @@
-# Project Start
+# 🦠 COVID-19 Statistics Dashboard
 
-## To run project with docker
+![COVID-19 Dashboard](project-screenshot.png)
 
-First of all docker must be installed 
+A modern, interactive dashboard for tracking global COVID-19 statistics in real-time. Built with React, Redux, and Redux-Saga.
+
+## ✨ Features
+
+- 📊 **Real-time Statistics**: Live updates of global COVID-19 cases, recoveries, and deaths
+- 🗺️ **Interactive World Map**: Visual representation of cases by country
+- 📈 **Detailed Analytics**: Country-wise breakdown with sorting and filtering
+
+## ⚡ Getting Started
+
+### 📋 Prerequisites
+
+- 📦 Node.js (v14.0.0 or higher)
+- 🔧 npm (v6.0.0 or higher)
+- 🐳 Docker (optional)
+
+### 💻 Installation
+
+#### 🐋 Using Docker
+
+1. Clone the repository:
 
 Clone or download the project ( git clone https://github.com/burakbektass/covid-19-statistic.git)
 
